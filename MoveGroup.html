@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<body>
+<svg height="1000" width="1000"></svg>
+<script>
+
+  function onDragDrop(dragHandler, dropHandler) {
+        var drag = d3.behavior.drag();
+
+    drag.on("drag", dragHandler)
+    .on("dragend", dropHandler);
+    return drag;
+    }
+
+      var d = [{ x: 20, y: 20 }];
+
+        var g = d3.select("body").select("svg").data(d).append("g").attr("transform", function (d) { return        "translate(" + d.x + "," + d.y + ")"; })
+         .call(onDragDrop(dragmove, dropHandler));
+
+    g.append("rect")
+    .attr("width", 40)
+    .attr("height", 40)
+    .attr("stroke", "red")
+    .attr("fill","transparent")
+    .attr("x", "20" )
+    .attr("y", "20")
+
+    g.append("text")
+    .text("Any Text")
+    .attr("x", "20" )
+    .attr("y", "20")
+    
+    function dropHandler(d) {
+        alert('dropped');
+    }
+
+  function dragmove(d) {
+            d.x += d3.event.dx;
+            d.y += d3.event.dy;
+            d3.select(this).attr("transform", "translate(" + d.x + "," + d.y + ")");
+  }
+
+</script>
+</body>
